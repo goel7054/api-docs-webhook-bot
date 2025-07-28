@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Documentation Bot</title>
+</head>
+<body>
+  <h2>Ask About the API</h2>
+  <input type="text" id="userQuery" placeholder="Ask something...">
+  <button onclick="sendQuery()">Submit</button>
+  <p id="response"></p>
+
+  <script>
+    async function sendQuery() {
+      const query = document.getElementById('userQuery').value;
+      const response = await fetch('/webhook', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query })
+      });
+      const data = await response.json();
+      document.getElementById('response').innerText = data.reply;
+    }
+  </script>
+</body>
+</html>
